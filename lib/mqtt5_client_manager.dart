@@ -2,6 +2,7 @@
 // import 'dart:io';
 // import 'package:mqtt5_client/mqtt5_client.dart';
 // import 'package:mqtt5_client/mqtt5_server_client.dart';
+// import 'package:typed_data/typed_buffers.dart';
 //
 // const String SERVER_IP = '192.168.2.133';
 // const int SERVER_PORT = 1883;
@@ -95,6 +96,12 @@
 //     final builder = MqttPayloadBuilder();
 //     builder.addString(message);
 //     client.publishMessage(topic, MqttQos.exactlyOnce, builder.payload!);
+//   }
+//
+//   void publishUnit8List(String topic, Uint8List unit8List) {
+//     Uint8Buffer dataBuffer = Uint8Buffer();
+//     dataBuffer.addAll(unit8List);
+//     client.publishMessage(topic, MqttQos.exactlyOnce, dataBuffer);
 //   }
 //
 //   void disconnect() {

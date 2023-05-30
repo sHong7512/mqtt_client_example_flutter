@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+
+import 'package:typed_data/typed_buffers.dart';
 
 /**
  * MQTT v3, v3.1.1
@@ -91,8 +94,13 @@ class MQTTClientManager {
   void publishMessage(String topic, String message) {
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
-    print('shong] $topic');
     client.publishMessage(topic, MqttQos.exactlyOnce, builder.payload!);
+  }
+
+  void publishUnit8List(String topic, Uint8List unit8List) {
+    Uint8Buffer dataBuffer = Uint8Buffer();
+    dataBuffer.addAll(unit8List);
+    client.publishMessage(topic, MqttQos.exactlyOnce, dataBuffer);
   }
 
   Stream<List<MqttReceivedMessage<MqttMessage>>>? getMessagesStream() {
