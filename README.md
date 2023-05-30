@@ -1,16 +1,81 @@
 # mqtt_client_example
 
-A new Flutter project.
+mqtt & mqtt v5 client example
 
-## Getting Started
+## Make Mac Broker (with Mosquitto)
 
-This project is a starting point for a Flutter application.
+- Install Mosquitto
 
-A few resources to get you started if this is your first Flutter project:
+```
+brew install mosquitto
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Start Mosquitto
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+brew services start mosquitto
+```
+
+- Stop Mosquitto
+
+```
+brew services stop mosquitto
+```
+
+- Running Mosquitto Non-Service (= Broker) (My MacBook Path)
+ 
+```
+/usr/local/opt/mosquitto/sbin/mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf
+```
+
+or
+
+```
+mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf
+```
+
+- Config Path (My MacBook)
+
+```
+/usr/local/etc/mosquitto/mosquitto.conf
+```
+
+- Test Message Publishing
+
+```
+/usr/local/opt/mosquitto/bin/mosquitto_pub -h 127.0.0.1 -p 1883 -t topic -m "test message"
+```
+
+or
+
+```
+mosquitto_pub -h 127.0.0.1 -p 1883 -t topic -m "test message"
+```
+
+- Subscribe
+
+```
+/usr/local/opt/mosquitto/bin/mosquitto_sub -h 127.0.0.1 -p 1883 -t topic
+```
+
+or
+
+```
+mosquitto_sub -h 127.0.0.1 -p 1883 -t topic
+```
+
+- Adding to mosquitto.conf for external execution
+
+```
+bind_address 0.0.0.0 # Allow All IPs
+
+allow_anonymous true # Allowing permissions to outsiders
+```
+
+- Error: Address already in use
+
+```
+ps -ef | grep mosquitto
+
+sudo kill 12345
+```
